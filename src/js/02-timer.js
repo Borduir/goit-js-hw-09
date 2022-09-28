@@ -11,7 +11,6 @@ const s = document.querySelector('[data-seconds]');
 
 startBtn.disabled = true;
 let timeLeft = 0;
-let changedTimeArray = [];
 
 const options = {
   enableTime: true,
@@ -50,28 +49,45 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
+const values = document.querySelectorAll('.value');
+
 function addLeadingZero(array) {
-  if (array.days < 10) {
-    d.textContent = array.days.toString().padStart(2, '0');
-  } else {
-    d.textContent = array.days;
-  }
-  if (array.hours < 10) {
-    h.textContent = array.hours.toString().padStart(2, '0');
-  } else {
-    h.textContent = array.hours;
-  }
-  if (array.minutes < 10) {
-    m.textContent = array.minutes.toString().padStart(2, '0');
-  } else {
-    m.textContent = array.minutes;
-  }
-  if (array.seconds < 10) {
-    s.textContent = array.seconds.toString().padStart(2, '0');
-  } else {
-    s.textContent = array.seconds;
+  console.log(array);
+  let i = 0;
+  for (key in array) {
+    let newValue = array[key];
+    if (newValue < 10) {
+      newValue = newValue.toString().padStart(2, '0');
+    }
+    values[i].textContent = newValue;
+    console.log(values[i].textContent);
+
+    i += 1;
   }
 }
+
+// function addLeadingZero(array) {
+//   if (array.days < 10) {
+//     d.textContent = array.days.toString().padStart(2, '0');
+//   } else {
+//     d.textContent = array.days;
+//   }
+//   if (array.hours < 10) {
+//     h.textContent = array.hours.toString().padStart(2, '0');
+//   } else {
+//     h.textContent = array.hours;
+//   }
+//   if (array.minutes < 10) {
+//     m.textContent = array.minutes.toString().padStart(2, '0');
+//   } else {
+//     m.textContent = array.minutes;
+//   }
+//   if (array.seconds < 10) {
+//     s.textContent = array.seconds.toString().padStart(2, '0');
+//   } else {
+//     s.textContent = array.seconds;
+//   }
+// }
 
 flatpickr('#datetime-picker', options);
 

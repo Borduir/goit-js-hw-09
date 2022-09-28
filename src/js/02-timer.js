@@ -1,6 +1,5 @@
 'use strict';
 import flatpickr from 'flatpickr';
-
 import 'flatpickr/dist/flatpickr.min.css';
 
 const startBtn = document.querySelector('button');
@@ -8,6 +7,26 @@ const d = document.querySelector('[data-days]');
 const h = document.querySelector('[data-hours]');
 const m = document.querySelector('[data-minutes]');
 const s = document.querySelector('[data-seconds]');
+const timeSections = document.querySelectorAll('.field');
+const timerBox = document.querySelector('.timer');
+const values = document.querySelectorAll('.value');
+
+//STYLES
+
+timerBox.style.display = 'flex';
+
+for (section of timeSections) {
+  section.style.display = 'flex';
+  section.style.flexDirection = 'column';
+  section.style.marginLeft = '20px';
+}
+
+for (value of values) {
+  value.style.color = 'tomato';
+  value.style.fontSize = '45px';
+}
+
+//FUNCTIONS
 
 startBtn.disabled = true;
 let timeLeft = 0;
@@ -49,8 +68,6 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-const values = document.querySelectorAll('.value');
-
 function addLeadingZero(array) {
   console.log(array);
   let i = 0;
@@ -66,6 +83,7 @@ function addLeadingZero(array) {
   }
 }
 
+//ALTRNATIVE ADD_LEADING_ZER FUNCTION
 // function addLeadingZero(array) {
 //   if (array.days < 10) {
 //     d.textContent = array.days.toString().padStart(2, '0');
@@ -88,6 +106,8 @@ function addLeadingZero(array) {
 //     s.textContent = array.seconds;
 //   }
 // }
+
+// MAIN ACTION
 
 flatpickr('#datetime-picker', options);
 

@@ -7,53 +7,42 @@ const promiseAmount = document.querySelector('[name="amount"]');
 const submitBtn = document.querySelector('[type="submit"]');
 
 form.style.display = 'flex';
-
-let totalDelay = promiseDelay;
-let position = 1;
-// const timer = setTimeout(createPromise, function () {
-//   if ((position = 0)) {
-//     totalDelay = promiseDelay.value;
-//   } else {
-//     totalDelay = promiseDelay.value + promiseStep.value;
-//   }
-//   return totalDelay;
-// });
+let totalDelay = 0;
 
 function createPromise(position, delay) {
-  console.log(promiseAmount.value);
-  delay = totalDelay;
-
-  if (position <= promiseAmount.value) {
-    const shouldResolve = Math.random() > 0.3;
-    const promise = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (shouldResolve) {
-          resolve();
-        } else {
-          reject();
-        }
-      }, delay);
-    });
-    console.log(promise);
-    promise
-      .then(({ position, delay }) => {
-        console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
-      })
-      .catch(({ position, delay }) => {
-        console.log(`❌ Rejected promise ${position} in ${delay}ms`);
-      })
-      .finally(() => {
-        position += 1;
-        if (position !== 1) {
-          totalDelay += promiseStep.value;
-        }
-      });
+  const shouldResolve = Math.random() > 0.3;
+  if (position === 1) {
+    totalDelay = delay;
   } else {
-    return;
+    totalDelay += Number(promiseStep.value);
   }
-}
+  delay = totalDelay;
+  console.log(totalDelay);
+  console.log(position);
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (shouldResolve) {
+        resolve();
+      } else {
+        reject();
+      }
+    }, totalDelay);
+  })
+    .then(() => {
+      console.log(`✅ Fulfilled promise ${position} in ${delay}ms`);
+    })
+    .catch(() => {
+      console.log(`❌ Rejected promise ${position} in ${delay}ms`);
+    });
 
-form.addEventListener('submit', createPromise);
+  console.log(promise);
+}
+form.addEventListener('submit', () => {
+  for (let i = 1; i <= Number(promiseAmount.value); i += 1) {
+    createPromise(i, Number(promiseDelay.value));
+  }
+});
+
 form.addEventListener('submit', e => {
   e.preventDefault();
 });

@@ -15,13 +15,13 @@ const values = document.querySelectorAll('.value');
 
 timerBox.style.display = 'flex';
 
-for (section of timeSections) {
+for (const section of timeSections) {
   section.style.display = 'flex';
   section.style.flexDirection = 'column';
   section.style.marginLeft = '20px';
 }
 
-for (value of values) {
+for (const value of values) {
   value.style.color = 'tomato';
   value.style.fontSize = '45px';
 }

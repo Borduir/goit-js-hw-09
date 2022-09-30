@@ -71,7 +71,7 @@ function convertMs(ms) {
 function addLeadingZero(array) {
   console.log(array);
   let i = 0;
-  for (key in array) {
+  for (const key in array) {
     let newValue = array[key];
     if (newValue < 10) {
       newValue = newValue.toString().padStart(2, '0');
